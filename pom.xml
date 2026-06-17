@@ -4,6 +4,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<!-- 中央ビルドの親pomを座標参照（SNAPSHOT）。relativePath空＝local .m2/リモートから解決。
+	     親pomを更新→再publishすると、子は mvn -U の再ビルドだけで新しい版pinを取り込む。 -->
+	<parent>
+		<groupId>com.example.central</groupId>
+		<artifactId>central-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+
 	<groupId>customer</groupId>
 	<artifactId>consumer-a-parent</artifactId>
 	<version>${revision}</version>
@@ -15,11 +24,6 @@
 		<!-- OUR VERSION -->
 		<revision>1.0.0-SNAPSHOT</revision>
 
-		<!-- DEPENDENCIES VERSION -->
-		<jdk.version>21</jdk.version>
-		<cds.services.version>4.8.0</cds.services.version>
-		<spring.boot.version>3.5.11</spring.boot.version>
-
 		<cds.install-node.downloadUrl>https://nodejs.org/dist/</cds.install-node.downloadUrl>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -28,27 +32,6 @@
 		<module>srv</module>
 	</modules>
 
-	<dependencyManagement>
-		<dependencies>
-			<!-- CDS SERVICES -->
-			<dependency>
-				<groupId>com.sap.cds</groupId>
-				<artifactId>cds-services-bom</artifactId>
-				<version>${cds.services.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<!-- SPRING BOOT -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring.boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<pluginManagement>
@@ -66,7 +49,6 @@
 			<!-- JAVA VERSION -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.15.0</version>
 				<configuration>
 					<release>${jdk.version}</release>
 					<encoding>UTF-8</encoding>
@@ -86,14 +68,12 @@
 			<!-- SUREFIRE VERSION -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.5.5</version>
 			</plugin>
 
 			<!-- POM FLATTENING FOR CI FRIENDLY VERSIONS -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>flatten-maven-plugin</artifactId>
-				<version>1.7.3</version>
 				<configuration>
 					<updatePomFile>true</updatePomFile>
 					<flattenMode>resolveCiFriendliesOnly</flattenMode>
@@ -119,7 +99,6 @@
 			<!-- PROJECT STRUCTURE CHECKS -->
 			<plugin>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.6.2</version>
 				<executions>
 					<execution>
 						<id>Project Structure Checks</id>
