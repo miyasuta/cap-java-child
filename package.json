@@ -4,5 +4,9 @@
   "devDependencies": {
     "@sap/cds-dk": "^9.7.2"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "scripts": {
+    "build": "mbt build -t gen --mtar mta.tar",
+    "deploy": "cf deploy gen/mta.tar -f"
+  }
 }
