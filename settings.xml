@@ -10,6 +10,14 @@
     <profile>
       <id>github</id>
       <repositories>
+        <!-- ① Central を先に。多数派(cds, spring等)はここで解決＝githubを叩かない -->
+        <repository>
+          <id>central</id>
+          <url>https://repo.maven.apache.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+        <!-- ② github は miyasuta製(central-parent / emoji-plugin)用 -->
         <repository>
           <id>github</id>
           <url>https://maven.pkg.github.com/miyasuta/*</url>
