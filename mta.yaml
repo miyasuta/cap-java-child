@@ -18,7 +18,10 @@ modules:
     build-parameters:
       builder: custom
       commands:
-        - mvn clean package -DskipTests=true --batch-mode -U
+        # -s ../settings.xml: ワークスペース直下の settings.xml を使い、GitHub Packages から
+        # 親pom(central-parent) と emoji-plugin を解決する。GITHUB_TOKEN は CI/CD の
+        # Additional Credentials (_additional.credentialVariables) で注入される。
+        - mvn clean package -DskipTests=true --batch-mode -U -s ../settings.xml
       build-result: target/*-exec.jar
     provides:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
