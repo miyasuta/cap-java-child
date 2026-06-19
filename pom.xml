@@ -5,11 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- 中央ビルドの親pomを座標参照（SNAPSHOT）。relativePath空＝local .m2/リモートから解決。
-	     親pomを更新→再publishすると、子は mvn -U の再ビルドだけで新しい版pinを取り込む。 -->
+	     親pomのバージョンが上がったら、以下のバージョンも更新が必要 -->
 	<parent>
 		<groupId>com.example.central</groupId>
 		<artifactId>central-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>2.0.0</version>
 		<relativePath/>
 	</parent>
 
