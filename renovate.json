@@ -6,6 +6,10 @@
       "matchManagers": ["maven"],
       "matchPackageNames": ["com.example.central:central-parent"],
       "registryUrls": ["https://maven.pkg.github.com/miyasuta/cap-java-parent-pom-sample"]
+    },
+    {
+      "matchPackageNames": ["customer:consumer-a-parent"],
+      "enabled": false
     }
   ],
   "hostRules": [
