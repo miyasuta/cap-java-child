@@ -1,0 +1,18 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "packageRules": [
+    {
+      "matchManagers": ["maven"],
+      "matchPackageNames": ["com.example.central:central-parent"],
+      "registryUrls": ["https://maven.pkg.github.com/miyasuta/cap-java-parent-pom-sample"]
+    }
+  ],
+  "hostRules": [
+    {
+      "matchHost": "maven.pkg.github.com",
+      "hostType": "maven",
+      "token": "{{ secrets.GITHUB_PACKAGES_TOKEN }}"
+    }
+  ]
+}
