@@ -34,7 +34,7 @@ class EmojiPluginITest {
         // Act + Assert: reading it back returns the emoji-decorated title
         mockMvc.perform(get(BOOKS_URL + "?$filter=title eq 'Wuthering Heights'"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.value[0].title").value(containsString("🚀")));
+                .andExpect(jsonPath("$.value[0].title").value(containsString("🎉")));
     }
 
 }
