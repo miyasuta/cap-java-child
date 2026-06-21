@@ -39,6 +39,6 @@ GitHub 側の設定（ファイル外）：
 
 ## ドキュメント
 
-- 構築手順・動作確認（赤→緑）：[docs/guide/GUIDE-promotion-model.md](docs/guide/GUIDE-promotion-model.md)
-- 親pom 中央ビルドの土台：[docs/guide/GUIDE-central-build-setup.md](docs/guide/GUIDE-central-build-setup.md)
+1. **土台**：[docs/guide/GUIDE-central-build-setup.md](docs/guide/GUIDE-central-build-setup.md) — 親pom 中央ビルドの構成（親 / 子 / GitHub Packages / CI/CD、settings.xml・PAT 解決）
+2. **自動化**：[docs/guide/GUIDE-promotion-model.md](docs/guide/GUIDE-promotion-model.md) — ①の上に Renovate＋PR検証＋auto-merge を載せて版上げを自動展開。動作確認（赤→緑）も
 - 背景・設計判断・移行ステップ：[docs/plan/PLAN-promotion-model.md](docs/plan/PLAN-promotion-model.md)
