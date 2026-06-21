@@ -4,11 +4,17 @@
 
 親pom（`central-parent`）が依存版を一元管理し、その版上げを **Renovate が検知 → PR 自動作成 → PR で自動テスト → 緑なら auto-merge → main への push で CI/CD 起動**、という連鎖で取り込む。consumer 側の自動テストが「壊れていないこと」の自動検証（安全網）を担う。
 
-```
-central-parent を新固定版で publish (2.0.0 → 2.1.0)
-  → Renovate が <parent> 更新を検知し PR 自動作成
-    → PR で自動テスト  🟢 緑→auto-merge   🔴 赤→ブロック（安全網）
-      → main への push を webhook が受けて CI/CD（DEV→QAS→PROD）
+```mermaid
+flowchart TD
+    EP["emoji-plugin<br/>(cap-java-emoji-plugin)"] -->|"① 固定版を publish"| GP[("GitHub Packages<br/>Maven Registry")]
+    PP["central-parent / 親pom<br/>(cap-java-parent-pom-sample)"] -->|"② emoji-plugin を pin し親版を publish"| GP
+    GP -->|"③ parent の新版を監視"| RN{{Renovate}}
+    CH["consumer / 子<br/>(cap-java-child)<br/>parent を固定版で参照"] -->|"pom を監視"| RN
+    RN -->|"④ parent 更新 PR を自動作成"| PR["PR: parent 2.0.0 → 2.1.0"]
+    PR -->|"⑤ PR検証 GitHub Actions"| T{"test 緑?"}
+    T -->|"🟢 緑"| MG["⑥ auto-merge → main"]
+    T -->|"🔴 赤"| BK["ブロック（安全網・マージされない）"]
+    MG -->|"⑦ main への push を webhook で受信"| CD["BTP / SAP CI/CD<br/>build → DEV → QAS → PROD"]
 ```
 
 ## 関連リポジトリ
